@@ -1,0 +1,19 @@
+{
+  "name": "linkstorer",
+  "description": "backend for linkstorer",
+  "author": {
+    "name": "Sparkenstein",
+    "email": "zetabytes.pp@gmail.com"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "ioredis": "^4.14.1",
+    "nodemon": "^1.19.3",
+    "polka": "^0.5.2"
+  }
+}
