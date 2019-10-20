@@ -9,7 +9,7 @@ function posthandler(client) {
         try {
             await client.hset(`${SET_KEY}${id}`, ...Object.entries(request));
             res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end('Done');
+            res.end(JSON.stringify({message: 'OK'}));
         } catch (e) {
             console.error(e);
             res.end('error occurred');
