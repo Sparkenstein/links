@@ -1,3 +1,4 @@
+"use strict";
 const polka = require("polka");
 const router = polka();
 

@@ -1,3 +1,4 @@
+"use strict";
 const INDEX = 'index';
 const SET_KEY = 'link:';
 

@@ -1,4 +1,4 @@
-
+"use strict";
 const SET_KEY = "link:";
 
 
