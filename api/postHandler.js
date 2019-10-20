@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 const INDEX = 'index';
 const SET_KEY = 'link:';
 
 function posthandler(client) {
-    return async function handler(req, res){
+    return async function handler(req, res) {
         const request = req.body;
         const id = await client.incr(INDEX);
         try {
@@ -14,7 +14,7 @@ function posthandler(client) {
             console.error(e);
             res.end('error occurred');
         }
-    }    
+    };
 }
 
 module.exports = posthandler;

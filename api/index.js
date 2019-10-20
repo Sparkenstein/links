@@ -1,2 +1,2 @@
-"use strict";
-module.exports = require("./router");
+'use strict';
+module.exports = require('./router');
