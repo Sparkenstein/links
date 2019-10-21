@@ -6,5 +6,9 @@ const instance = polka().listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-instance.use(json());
-instance.use('/api', routes);
+instance
+    .use(json())
+    .use('/api', routes)
+    .get('/', (req, res) => {
+        res.end("<h1>Hello Page</h1>")
+    });
