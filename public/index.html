@@ -14,14 +14,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
     </head>
     <body>
-        <nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
+        <!-- Use tags input https://wikiki.github.io/form/tagsinput/     -->
+        <nav
+            class="navbar has-shadow"
+            role="navigation"
+            aria-label="main navigation"
+        >
             <div class="navbar-brand">
                 <a class="navbar-item" href="https://bulma.io">
-                    <img
-                        src="logo.png"
-                        width="112"
-                        height="28"
-                    />
+                    <img src="logo.png" width="112" height="28" />
                 </a>
 
                 <a
@@ -52,9 +53,6 @@
         <div class="section">
             <div class="container">
                 <h1 class="title">Search...</h1>
-                <!-- <h2 class="subtitle">
-                    Start typing
-                </h2> -->
             </div>
         </div>
         <div class="container">
@@ -63,6 +61,7 @@
                     <div class="field">
                         <div class="control">
                             <input
+                                id="searchbar"
                                 class="input is-primary"
                                 type="text"
                                 placeholder="Primary input"
@@ -72,5 +71,7 @@
                 </div>
             </div>
         </div>
+
+        <script src="main.js"></script>
     </body>
 </html>
