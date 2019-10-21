@@ -1,4 +1,5 @@
-const input = document.getElementById("searchbar");
-input.addEventListener('input', function(e){
-    console.log("Changed", e.target.value);
-})
+'use strict';
+import {Navbar} from './components/navbar.js';
+
+var root = document.body;
+m.render(root, Navbar);
