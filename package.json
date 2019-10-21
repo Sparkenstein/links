@@ -6,7 +6,7 @@
     "email": "zetabytes.pp@gmail.com"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js --ignore 'public'"
   },
   "version": "1.0.0",
   "main": "index.js",
