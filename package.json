@@ -6,14 +6,16 @@
     "email": "zetabytes.pp@gmail.com"
   },
   "scripts": {
-    "start": "nodemon index.js --ignore 'public'"
+    "start": "parcel build public/index.html && nodemon index.js --ignore 'dist'"
   },
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "bulma": "^0.8.0",
     "ioredis": "^4.14.1",
+    "mithril": "^2.0.4",
     "nodemon": "^1.19.3",
     "polka": "^0.5.2",
     "serve-static": "^1.14.1"
