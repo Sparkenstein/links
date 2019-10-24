@@ -15,7 +15,7 @@ export function Navbar() {
             m('div', { class: 'navbar-brand' }, [
                 m(
                     'a',
-                    { href: '#', class: 'navbar-item' },
+                    { href: '#/', class: 'navbar-item' },
                     m('img', { src: logo, width: '112', height: 28 })
                 ),
                 m(
@@ -50,6 +50,7 @@ export function Navbar() {
                                 'a',
                                 {
                                     id: 'submit',
+                                    href: '#/submit',
                                     class: 'button is-primary'
                                 },
                                 m('strong', 'Submit')
