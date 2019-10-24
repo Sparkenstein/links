@@ -1,6 +1,6 @@
 import * as m from "mithril";
 import 'bulma';
-import {Navbar} from './components/navbar.js';
+import { Main } from "./components";
 
 var root = document.body;
-m.mount(root, Navbar);
+m.mount(root, Main);
