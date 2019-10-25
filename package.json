@@ -6,7 +6,7 @@
     "email": "zetabytes.pp@gmail.com"
   },
   "scripts": {
-    "start": "parcel build public/index.html && nodemon index.js --ignore 'dist'"
+    "start": "nodemon index.js"
   },
   "version": "1.0.0",
   "main": "index.js",
