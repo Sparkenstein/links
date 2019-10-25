@@ -1,11 +1,23 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 
 function Body() {
     return (
-        <Container fluid>
+        <Container>
             <Row>
-                <Col>Hleo</Col>
+                <Col>
+                    <br />
+                    <Form>
+                        <Form.Group controlId="formBasicEmail">
+                            <h2 className="display-4">Search...</h2>
+                            <Form.Control
+                                style={{ borderRadius: '0.5em' }}
+                                type="text"
+                                placeholder="Type here to search..."
+                            />
+                        </Form.Group>
+                    </Form>
+                </Col>
             </Row>
         </Container>
     );
