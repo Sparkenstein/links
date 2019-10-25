@@ -1,20 +1,12 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import Navigation from './components/Navbar';
+import Body from './components/Body';
+
 function App() {
     return (
         <>
-            <Navbar bg="bg-white" variant="light">
-                <Navbar.Brand href="#home">
-                    <img
-                        alt="Logo"
-                        src="/logo.png"
-                        width="112"
-                        height="28"
-                        className="d-inline-block align-top"
-                    />
-                    {' React Bootstrap'}
-                </Navbar.Brand>
-            </Navbar>
+            <Navigation />
+            <Body />
         </>
     );
 }
