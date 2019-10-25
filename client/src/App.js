@@ -1,6 +1,7 @@
 import React from 'react';
 import Navigation from './components/Navbar';
 import Body from './components/Body';
+import SubmitModal from './components/SubmitModal';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
@@ -9,7 +10,7 @@ function App() {
             <Navigation />
             <Switch>
                 <Route path="/submit">
-                    <div>Hello Submit</div>
+                    <SubmitModal toShow={true} />
                 </Route>
                 <Route path="/">
                     <Body />
