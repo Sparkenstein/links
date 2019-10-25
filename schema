@@ -1,10 +1,10 @@
 Link
   - (no id as hashname will act as ID)
-  - url
-  - tags
+  - url*
+  - tags*
   - upvotes
-  - description
+  - description*
   - create_ts
   - reports
   - short-url
-  - category
+  - category*
