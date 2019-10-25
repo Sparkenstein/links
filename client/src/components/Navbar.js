@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Navbar, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 function Navigation() {
     return (
@@ -14,7 +15,9 @@ function Navigation() {
                         className="d-inline-block align-top"
                     />
                 </Navbar.Brand>
-                <Button variant="outline-primary">Submit</Button>
+                <Link to="/submit">
+                    <Button variant="outline-primary">Submit</Button>
+                </Link>
             </Navbar>
         </Container>
     );
