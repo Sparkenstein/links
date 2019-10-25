@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import { WithContext as ReactTags } from 'react-tag-input';
+import "./tags.css";
 
 function SubmitModal({ toShow }) {
     const [show, setShow] = useState(toShow);
@@ -8,6 +10,43 @@ function SubmitModal({ toShow }) {
     const handleClose = () => {
         setShow(false);
         setClicked(true);
+    };
+
+    const KeyCodes = {
+        comma: 188,
+        enter: 13,
+      };
+       
+      const delimiters = [KeyCodes.comma, KeyCodes.enter];
+
+    const [tags, setTags] = useState([
+        { id: "Thailand", text: "Thailand" },
+        { id: "India", text: "India" }
+     ]);
+     const [suggestions] = useState([
+        { id: 'USA', text: 'USA' },
+        { id: 'Germany', text: 'Germany' },
+        { id: 'Austria', text: 'Austria' },
+        { id: 'Costa Rica', text: 'Costa Rica' },
+        { id: 'Sri Lanka', text: 'Sri Lanka' },
+        { id: 'Thailand', text: 'Thailand' }
+     ]);
+
+    const handleDelete = i => {
+        setTags(tags.filter((tag, index) => index !== i));
+    };
+
+    const handleAddition = tag => {
+        setTags([...tags, tag]);
+    };
+
+    const handleDrag = (tag, currPos, newPos) => {
+        const newTags = tags.slice();
+
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
+
+        setTags(newTags);
     };
 
     return clicked ? (
@@ -43,9 +82,13 @@ function SubmitModal({ toShow }) {
                         <Col>
                             <Form.Group controlId="formTags">
                                 <Form.Label>Tags</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter Tags"
+                                <ReactTags
+                                    tags={tags}
+                                    suggestions={suggestions}
+                                    handleDelete={handleDelete}
+                                    handleAddition={handleAddition}
+                                    handleDrag={handleDrag}
+                                    delimiters={delimiters}
                                 />
                             </Form.Group>
                         </Col>
@@ -66,7 +109,7 @@ function SubmitModal({ toShow }) {
                     Cancel
                 </Button>
                 <Button variant="primary" onClick={handleClose}>
-                    Save Changes
+                    Submit
                 </Button>
             </Modal.Footer>
         </Modal>
