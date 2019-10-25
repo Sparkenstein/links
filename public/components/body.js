@@ -2,7 +2,10 @@ import m from 'mithril';
 
 export function Body() {
     return m('div', { class: 'section' }, [
-        m('.container', m('h1.title', 'Search...')),
+        m(
+            '.container',
+            m('h1.title', { style: { padding: '10px' } }, 'Search...')
+        ),
         m(
             '.container',
             m(
