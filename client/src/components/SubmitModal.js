@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import Choices from 'choices.js';
-// import 'choices.js/public/assets/styles/base.min.css';
 import 'choices.js/public/assets/styles/choices.min.css';
 
 function SubmitModal() {
@@ -33,9 +32,13 @@ function SubmitModal() {
             placeholderValue: "Enter Tags",
         });
 
-        tagsElem.passedElement.element.addEventListener('addItem', function(e){
-            setTags(x => [...x, e.detail.value]);
+        tagsElem.passedElement.element.addEventListener('addItem', function(event){
+            setTags(prevTags => [...prevTags, event.detail.value]);
         });
+
+        tagsElem.passedElement.element.addEventListener('removeItem', function(event){
+            setTags(prevTags => prevTags.filter(curr => curr !== event.detail.value))
+        })
 
         const categoryElemt = new Choices('#formCategory', {
             choices: [
@@ -50,12 +53,17 @@ function SubmitModal() {
             removeItemButton: true,
             duplicateItemsAllowed: false,
             placeholder: true,
-            placeholderValue: "Enter Tags",
-        });
+            searchPlaceholderValue: "Enter Category",
+        }).removeActiveItems();
 
         categoryElemt.passedElement.element.addEventListener('addItem', function(e){
             setCategory(e.detail.value);
         })
+        
+        categoryElemt.passedElement.element.addEventListener('removeItem', function(e){
+            setCategory("");
+        });
+
     }, []);
 
     const handleSubmit = async e => {
