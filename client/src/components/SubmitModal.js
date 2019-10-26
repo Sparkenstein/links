@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import Choices from 'choices.js';
-import 'choices.js/public/assets/styles/choices.min.css';
 
 function SubmitModal() {
     const [clicked, setClicked] = useState(false);
