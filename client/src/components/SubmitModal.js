@@ -19,51 +19,63 @@ function SubmitModal() {
         const tagsElem = new Choices('#formTags', {
             choices: [
                 { value: 'github', label: 'Github' },
-                { value: 'news', label: 'News'},
+                { value: 'news', label: 'News' },
                 { value: 'article', label: 'Article' },
                 { value: 'blog', label: 'Blog' },
                 { value: 'tool', label: 'Tool' },
-                { value: 'design', label: 'Design' },
+                { value: 'design', label: 'Design' }
             ],
             maxItemCount: 5,
             removeItemButton: true,
             duplicateItemsAllowed: false,
             placeholder: true,
-            placeholderValue: "Enter Tags",
+            placeholderValue: 'Enter Tags'
         });
 
-        tagsElem.passedElement.element.addEventListener('addItem', function(event){
+        tagsElem.passedElement.element.addEventListener('addItem', function(
+            event
+        ) {
             setTags(prevTags => [...prevTags, event.detail.value]);
         });
 
-        tagsElem.passedElement.element.addEventListener('removeItem', function(event){
-            setTags(prevTags => prevTags.filter(curr => curr !== event.detail.value))
-        })
+        tagsElem.passedElement.element.addEventListener('removeItem', function(
+            event
+        ) {
+            setTags(prevTags =>
+                prevTags.filter(curr => curr !== event.detail.value)
+            );
+        });
 
         const categoryElemt = new Choices('#formCategory', {
             choices: [
                 { value: 'github', label: 'Github' },
-                { value: 'news', label: 'News'},
+                { value: 'news', label: 'News' },
                 { value: 'article', label: 'Article' },
                 { value: 'blog', label: 'Blog' },
                 { value: 'tool', label: 'Tool' },
                 { value: 'design', label: 'Design' },
+                { value: 'library', label: 'Library' }
             ],
             // maxItemCount: 1,
             removeItemButton: true,
             duplicateItemsAllowed: false,
             placeholder: true,
-            searchPlaceholderValue: "Enter Category",
+            searchPlaceholderValue: 'Enter Category'
         }).removeActiveItems();
 
-        categoryElemt.passedElement.element.addEventListener('addItem', function(e){
-            setCategory(e.detail.value);
-        })
-        
-        categoryElemt.passedElement.element.addEventListener('removeItem', function(e){
-            setCategory("");
-        });
+        categoryElemt.passedElement.element.addEventListener(
+            'addItem',
+            function(e) {
+                setCategory(e.detail.value);
+            }
+        );
 
+        categoryElemt.passedElement.element.addEventListener(
+            'removeItem',
+            function(e) {
+                setCategory('');
+            }
+        );
     }, []);
 
     const handleSubmit = async e => {
@@ -82,6 +94,7 @@ function SubmitModal() {
         })
             .then(d => d.json())
             .catch(console.error);
+        setClicked(true);
         console.log('DONE', res);
     };
 
