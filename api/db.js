@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS links (
     description TEXT NOT NULL,
     create_ts DATETIME DEFAULT CURRENT_TIMESTAMP,
     reports INTEFER DEFAULT 0,
-    short_url TEXT NOT NULL,
     category TEXT NOT NULL
 );
 `

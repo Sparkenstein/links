@@ -1,10 +1,8 @@
 'use strict';
-const { encode } = require('./shortUrl');
 
 function posthandler(client) {
     return async function handler(req, res) {
         const request = req.body;
-        const { id = 1 } = client.getId().get();
         try {
             if (!request.url) {
                 res.writeHead(400, 'Bad Request');
@@ -24,10 +22,7 @@ function posthandler(client) {
             }
             request.upvotes = 0;
             request.reports = 0;
-            // request.short = encode(record.id);
-            request.short = "abc";
-            const insert = client.insertRecort(request).run();
-            console.log("Inserted", insert)
+            client.insertRecort(request).run();
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: 'Saved' }));
         } catch (e) {
