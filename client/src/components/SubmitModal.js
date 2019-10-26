@@ -16,14 +16,6 @@ function SubmitModal() {
 
     useEffect(() => {
         const tagsElem = new Choices('#formTags', {
-            choices: [
-                { value: 'github', label: 'Github' },
-                { value: 'news', label: 'News' },
-                { value: 'article', label: 'Article' },
-                { value: 'blog', label: 'Blog' },
-                { value: 'tool', label: 'Tool' },
-                { value: 'design', label: 'Design' }
-            ],
             maxItemCount: 5,
             removeItemButton: true,
             duplicateItemsAllowed: false,
@@ -132,7 +124,7 @@ function SubmitModal() {
                     <Col>
                         <Form.Group controlId="formTags">
                             <Form.Label>Tags</Form.Label>
-                            <Form.Control as="select" multiple />
+                            <Form.Control multiple />
                         </Form.Group>
                     </Col>
                     <Col>
