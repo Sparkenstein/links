@@ -1,17 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import './tags.css';
+import Choices from 'choices.js';
+// import 'choices.js/public/assets/styles/base.min.css';
+import 'choices.js/public/assets/styles/choices.min.css';
 
 function SubmitModal() {
     const [clicked, setClicked] = useState(false);
     const [link, setLink] = useState('');
     const [desc, setDesc] = useState('');
     const [category, setCategory] = useState('');
+    const [tags, setTags] = useState([]);
 
     const handleClose = () => {
         setClicked(true);
     };
+
+    useEffect(() => {
+        const tagsElem = new Choices('#formTags', {
+            choices: [
+                { value: 'github', label: 'Github' },
+                { value: 'news', label: 'News'},
+                { value: 'article', label: 'Article' },
+                { value: 'blog', label: 'Blog' },
+                { value: 'tool', label: 'Tool' },
+                { value: 'design', label: 'Design' },
+            ],
+            maxItemCount: 5,
+            removeItemButton: true,
+            duplicateItemsAllowed: false,
+            placeholder: true,
+            placeholderValue: "Enter Tags",
+        });
+
+        tagsElem.passedElement.element.addEventListener('addItem', function(e){
+            setTags(x => [...x, e.detail.value]);
+        });
+
+        const categoryElemt = new Choices('#formCategory', {
+            choices: [
+                { value: 'github', label: 'Github' },
+                { value: 'news', label: 'News'},
+                { value: 'article', label: 'Article' },
+                { value: 'blog', label: 'Blog' },
+                { value: 'tool', label: 'Tool' },
+                { value: 'design', label: 'Design' },
+            ],
+            // maxItemCount: 1,
+            removeItemButton: true,
+            duplicateItemsAllowed: false,
+            placeholder: true,
+            placeholderValue: "Enter Tags",
+        });
+
+        categoryElemt.passedElement.element.addEventListener('addItem', function(e){
+            setCategory(e.detail.value);
+        })
+    }, []);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -23,7 +68,8 @@ function SubmitModal() {
             body: JSON.stringify({
                 link,
                 desc,
-                category
+                category,
+                tags
             })
         })
             .then(d => d.json())
@@ -62,16 +108,13 @@ function SubmitModal() {
                     <Col>
                         <Form.Group controlId="formTags">
                             <Form.Label>Tags</Form.Label>
+                            <Form.Control as="select" multiple />
                         </Form.Group>
                     </Col>
                     <Col>
                         <Form.Group controlId="formCategory">
                             <Form.Label>Category</Form.Label>
-                            <Form.Control
-                                onChange={e => setCategory(e.target.value)}
-                                type="text"
-                                placeholder="Enter Category"
-                            />
+                            <Form.Control as="select" />
                         </Form.Group>
                     </Col>
                 </Row>
