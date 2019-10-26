@@ -6,7 +6,7 @@ function Navigation() {
     return (
         <Container fluid>
             <Navbar bg="light" variant="light">
-                <Navbar.Brand href="#" className="mr-auto">
+                <Navbar.Brand href="/" className="mr-auto">
                     <img
                         alt="Logo"
                         src="/logo.png"
