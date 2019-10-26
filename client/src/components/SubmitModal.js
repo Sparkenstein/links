@@ -1,36 +1,53 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import { WithContext as ReactTags } from 'react-tag-input';
-import "./tags.css";
+import './tags.css';
 
-function SubmitModal({ toShow }) {
-    const [show, setShow] = useState(toShow);
+function SubmitModal() {
     const [clicked, setClicked] = useState(false);
+    const [link, setLink] = useState('');
+    const [desc, setDesc] = useState('');
+    const [tags, setTags] = useState([]);
+    const [suggestions] = useState([
+        { id: 'Github', text: 'Github' },
+        { id: 'Blog', text: 'Blog' },
+        { id: 'News', text: 'News' },
+        { id: 'Article', text: 'Article' },
+        { id: 'Tool', text: 'Tool' },
+        { id: 'Misc', text: 'Misc' }
+    ]);
+    const [category, setCategory] = useState('');
+
     const handleClose = () => {
-        setShow(false);
         setClicked(true);
+    };
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        const res = await fetch('/api/post', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                link,
+                desc,
+                category,
+                tags
+            })
+        })
+            .then(d => d.json())
+            .catch(console.error);
+        console.log('DONE', res);
     };
 
     const KeyCodes = {
         comma: 188,
-        enter: 13,
-      };
-       
-      const delimiters = [KeyCodes.comma, KeyCodes.enter];
+        enter: 13
+    };
 
-    const [tags, setTags] = useState([
-        { id: "Thailand", text: "Thailand" },
-        { id: "India", text: "India" }
-     ]);
-     const [suggestions] = useState([
-        { id: 'USA', text: 'USA' },
-        { id: 'Germany', text: 'Germany' },
-        { id: 'Austria', text: 'Austria' },
-        { id: 'Costa Rica', text: 'Costa Rica' },
-        { id: 'Sri Lanka', text: 'Sri Lanka' },
-        { id: 'Thailand', text: 'Thailand' }
-     ]);
+    const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
     const handleDelete = i => {
         setTags(tags.filter((tag, index) => index !== i));
@@ -52,67 +69,71 @@ function SubmitModal({ toShow }) {
     return clicked ? (
         <Redirect to="/" />
     ) : (
-        <Modal show={show} size="lg" onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>Submit New Link</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Form>
-                    <Row>
-                        <Col>
-                            <Form.Group controlId="formLink">
-                                <Form.Label>Link</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter URL"
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group controlId="formDescription">
-                                <Form.Label>Description</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter Description"
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <Form.Group controlId="formTags">
-                                <Form.Label>Tags</Form.Label>
-                                <ReactTags
-                                    tags={tags}
-                                    suggestions={suggestions}
-                                    handleDelete={handleDelete}
-                                    handleAddition={handleAddition}
-                                    handleDrag={handleDrag}
-                                    delimiters={delimiters}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group controlId="formCategory">
-                                <Form.Label>Category</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter Category"
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                </Form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={handleClose}>
-                    Submit
-                </Button>
-            </Modal.Footer>
-        </Modal>
+        <Container>
+            <Form>
+                <Row>
+                    <Col>
+                        <Form.Group controlId="formLink">
+                            <Form.Label>Link</Form.Label>
+                            <Form.Control
+                                onChange={e => setLink(e.target.value)}
+                                type="text"
+                                placeholder="Enter URL"
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="formDescription">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control
+                                onChange={e => setDesc(e.target.value)}
+                                type="text"
+                                placeholder="Enter Description"
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Form.Group controlId="formTags">
+                            <Form.Label>Tags</Form.Label>
+                            <ReactTags
+                                tags={tags}
+                                suggestions={suggestions}
+                                handleDelete={handleDelete}
+                                handleAddition={handleAddition}
+                                handleDrag={handleDrag}
+                                delimiters={delimiters}
+                            />
+                        </Form.Group>
+                    </Col>
+                    <Col>
+                        <Form.Group controlId="formCategory">
+                            <Form.Label>Category</Form.Label>
+                            <Form.Control
+                                onChange={e => setCategory(e.target.value)}
+                                type="text"
+                                placeholder="Enter Category"
+                            />
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={{offset: 10, span: 2}}>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        <Button
+                            style={{ marginLeft: '0.5em' }}
+                            variant="primary"
+                            onClick={handleSubmit}
+                        >
+                            Submit
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
+        </Container>
     );
 }
 
