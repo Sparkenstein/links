@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './sass/custom.scss'
 import * as serviceWorker from './serviceWorker';
+import 'choices.js/public/assets/styles/choices.min.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
