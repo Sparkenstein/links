@@ -1,14 +1,12 @@
 'use strict';
 const { encode } = require('./shortUrl');
 
-const INDEX = 'index';
-const SET_KEY = 'link:';
 function posthandler(client) {
     return async function handler(req, res) {
         const request = req.body;
-        const id = await client.incr(INDEX);
+        const { id = 1 } = client.getId().get();
         try {
-            if (!request.link) {
+            if (!request.url) {
                 res.writeHead(400, 'Bad Request');
                 res.end('{"message": "URL is missing"}');
             }
@@ -20,12 +18,16 @@ function posthandler(client) {
                 res.writeHead(400, 'Bad Request');
                 res.end('{"message": "At least 1 tag is required"}');
             }
+            if(!request.description){
+                res.writeHead(400, 'Bad Request');
+                res.end('{"message": "Please provide some description"}');
+            }
             request.upvotes = 0;
-            request.create_ts = new Date().getTime();
             request.reports = 0;
-            request.short = encode(id);
-
-            await client.hset(`${SET_KEY}${id}`, ...Object.entries(request));
+            // request.short = encode(record.id);
+            request.short = "abc";
+            const insert = client.insertRecort(request).run();
+            console.log("Inserted", insert)
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: 'Saved' }));
         } catch (e) {

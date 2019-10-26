@@ -1,10 +1,21 @@
 'use strict';
-const Redis = require('ioredis');
-const db = new Redis();
+const db = require('better-sqlite3')('linksStorage.db', { verbose: console.log });
+db.pragma('journal_mode = WAL');
 
-(async () => {
-    const monitor = await db.monitor();
-    monitor.on('monitor', console.log);
-})();
+db.prepare(
+    `
+CREATE TABLE IF NOT EXISTS links (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    url TEXT NOT NULL,
+    tags TEXT NOT NULL,
+    upvotes INTEFER DEFAULT 0,
+    description TEXT NOT NULL,
+    create_ts DATETIME DEFAULT CURRENT_TIMESTAMP,
+    reports INTEFER DEFAULT 0,
+    short_url TEXT NOT NULL,
+    category TEXT NOT NULL
+);
+`
+).run();
 
 module.exports = db;

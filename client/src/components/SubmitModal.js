@@ -5,8 +5,8 @@ import Choices from 'choices.js';
 
 function SubmitModal() {
     const [clicked, setClicked] = useState(false);
-    const [link, setLink] = useState('');
-    const [desc, setDesc] = useState('');
+    const [url, setUrl] = useState('');
+    const [description, setDesc] = useState('');
     const [category, setCategory] = useState('');
     const [tags, setTags] = useState([]);
 
@@ -85,15 +85,19 @@ function SubmitModal() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                link,
-                desc,
+                url,
+                description,
                 category,
                 tags
             })
         })
-            .then(d => d.json())
+            .then(res => {
+                if (res.status === 200){
+                    setClicked(true);
+                    return res.json();
+                }
+            })
             .catch(console.error);
-        setClicked(true);
         console.log('DONE', res);
     };
 
@@ -107,7 +111,7 @@ function SubmitModal() {
                         <Form.Group controlId="formLink">
                             <Form.Label>Link</Form.Label>
                             <Form.Control
-                                onChange={e => setLink(e.target.value)}
+                                onChange={e => setUrl(e.target.value)}
                                 type="text"
                                 placeholder="Enter URL"
                             />

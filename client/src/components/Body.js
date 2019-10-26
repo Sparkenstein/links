@@ -4,6 +4,8 @@ import Choices from 'choices.js';
 
 function Body() {
     const [tags, setTags] = useState(['Any']);
+    const [category, setCategory] = useState("any");
+    const [desc, setDesc] = useState("");
 
     useEffect(() => {
         const tagsElement = new Choices('#formTags', {
@@ -45,8 +47,14 @@ function Body() {
         );
     }, []);
 
-    const handleOnChange = e => {
-        console.log(tags, '==', e.target.value);
+    const handleOnChange = async e => {
+        const input = e.target.value;
+        console.log({
+            tags,
+            category,
+            input,
+            desc
+        });
     };
     return (
         <Container>
@@ -69,17 +77,18 @@ function Body() {
             <Row>
                 <Col>
                     <Form.Group controlId="formLink">
-                        <Form.Label>Link or Description matches:</Form.Label>
+                        <Form.Label>Description matches:</Form.Label>
                         <Form.Control
+                        onChange={e => setDesc(e.target.value)}
                             type="text"
-                            placeholder="Enter words to match against"
+                            placeholder="Enter part of description"
                         />
                     </Form.Group>
                 </Col>
                 <Col>
                     <Form.Group controlId="formLink">
                         <Form.Label>From Category:</Form.Label>
-                        <Form.Control as="select" placeholder="Enter Category">
+                        <Form.Control onChange={e => setCategory(e.target.value)} as="select" placeholder="Enter Category">
                             {' '}
                             <option>Any</option>
                             <option>Github</option> <option>News</option> 

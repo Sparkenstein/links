@@ -1,12 +1,11 @@
 'use strict';
-const SET_KEY = 'link:';
 
 function getHandler(client) {
-    return async function handler(req, res) {
-        const { id } = req.params;
+    return function handler(req, res) {
+        const data = client.getLinkByDesc("test").run();
+        console.log(data);
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        const data = await client.hgetall(`${SET_KEY}${id}`);
-        res.end(JSON.stringify(data));
+        res.end(JSON.stringify({link: 'abc'}));
     };
 }
 
