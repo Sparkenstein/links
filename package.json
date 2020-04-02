@@ -17,6 +17,7 @@
     "ioredis": "^4.14.1",
     "mithril": "^2.0.4",
     "nodemon": "^1.19.3",
+    "parcel-bundler": "^1.12.4",
     "polka": "^0.5.2",
     "serve-static": "^1.14.1"
   }
