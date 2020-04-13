@@ -1,5 +1,6 @@
 import m from 'mithril';
 import submit from './submit';
+import mem from "mem";
 
 export function Body() {
     return m('div', { class: 'columns', style: 'margin-top: 10px;' }, [
@@ -24,6 +25,7 @@ export function Body() {
                                 class: 'input is-primary is-rounded',
                                 id: 'searchbar',
                                 type: 'text',
+                                oninput: searchString,
                                 placeholder: 'Enter Search String...'
                             })
                         )
@@ -40,4 +42,17 @@ export function Body() {
             submit()
         )
     ]);
+}
+
+async function getRes(str){
+    return fetch(`/api/get/${str}`).then(d => d.json()).catch(console.error);
+}
+
+const memGetres = mem(getRes);
+
+async function searchString(e) {
+    if(e.target.value){
+        const res = await memGetres(e.target.value)
+        console.log('Result', res);
+    }
 }
